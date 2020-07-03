@@ -1,0 +1,124 @@
+<html lang="en">
+    <head>
+        <meta charset = "UTF-8">
+        <meta name="viewpoint" >
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+        <body>
+            <div id = 'data'></div>
+            <script>
+                let myBody = document.getElementsByTagName('body')[0];
+                const key = '3rYix23etO4HeQZBuCTBzC7CB0cO3GIT'
+                var url = `https://api.nytimes.com/svc/topstories/v2/home.json?api-key=3rYix23etO4HeQZBuCTBzC7CB0cO3GIT`
+                fetch(url)
+                .then((response)=>{
+                    console.log(response);
+                    return response.json();
+                    
+                }).then((result)=>{
+                let columns = 1;
+                let rows = result.num_results/1;
+                let n = 0 ;
+                for(let ind=0 ; ind<rows; ind++){
+                      let box = document.createElement("div")
+                      box.setAttribute('class', 'row container-fluid')
+                        
+                    for(let iind = 0 ; iind <columns;iind++){
+                        
+                        var cont = document.createElement('div');
+                        cont.setAttribute('class','container-fluid')
+
+                        let card = document.createElement('div')
+                        card.setAttribute("class",'card ')
+                        card.setAttribute("class",'card-header')
+
+
+                        var head=document.createElement('h5')
+                        head.innerHTML = result.results[n].section;
+                        //head.setAttribute('class','btn btn-primary')
+                        //head.setAttribute('data-toggle','collapse')
+                        //head.setAttribute('href','#abstract')
+                        //head.setAttribute('role','button')
+                        //head.setAttribute('aria-expanded','false')
+                        //head.setAttribute('aria-controls','collapseExample')
+
+                        //let image = document.createElement('img')
+				        //image.src = result.results[n].multimedia[4].embed_url
+                        //image.setAttribute('class','w-100 h-30 mx-3 my-3 float-left col-md-4')
+                        //image.setAttribute('id','inlineImage')
+
+                        let image = document.createElement('img')
+
+                        //var uri = result.results[n].multimedia[4].url;
+                          //  var link = JSON.stringify(uri)
+                           // var linkimg = encodeURI(link);
+				        image.src = "`"+result.results[0].multimedia[4].url +"`"
+                        image.setAttribute('class','w-100 h-30 mx-3 my-3 float-left col-md-4')
+                        image.setAttribute('type','image/jpg')
+                        image.setAttribute('id','inlineImage')
+                        //image.setAttribute('href',linkimg)
+                        //fetch(result.results[n].multimedia[4].value)
+                        //.then((response)=>{
+                           // return response.url();
+                        //}).then((result)=>{
+                          //  var img = document.createElement('object')
+                            //img = result.embed_url 
+                            //document.getElementById('inlineImage').append(img);
+                        //})
+
+                        //var img = document.createElement("object");
+                        
+                        // document.getElementById('data').append(img)
+                        
+
+                        var para1 = document.createElement('p');
+                        para1.innerHTML = "created_date : " + result.results[n].created_date;
+                        para1.setAttribute('class', 'card-text text-sm-left' )
+
+                        var para2 = document.createElement('p');
+                        para2.innerHTML = "abstract : " + result.results[n].abstract;
+                        para2.setAttribute('class', 'card-text text-sm-left card text-right w-50 ' )
+                        
+
+                        var para3 = document.createElement('p');
+                        para3.innerHTML = "byline : " + result.results[n].byline;
+                        para3.setAttribute('class', 'card-text text-sm-left  ' )
+
+                        var para4 = document.createElement('p');
+                        para4.innerHTML = "item_type : " + result.results[n].item_type;
+                        para4.setAttribute('class', 'card-text text-sm-left  ' )
+
+                        var para5 = document.createElement('p');
+                        para5.innerHTML = "short_url : " + result.results[n].short_url;
+                        para5.setAttribute('class', 'card-text text-sm-left  ' )
+                    
+                        
+
+
+                        
+                        card.appendChild(head);
+                        card.appendChild(image);
+                        card.appendChild(para1);
+                        card.appendChild(para2);
+                        card.appendChild(para3);
+                        card.appendChild(para4);
+                        card.appendChild(para5)
+                        cont.appendChild(card);
+                        n++;
+                        box.appendChild(cont);
+                        }
+                        myBody.appendChild(box);
+                    }
+                    
+
+                    //result.name((value)=>{
+                        //console.log("val->",result.name)
+                        //var img = document.createElement("object");
+                        //img.innerHTML = result.;
+                        //document.getElementById('data').append(img)
+                }).catch((err)=>{
+                    console.log(err);
+                })
+            </script>
+        </body>
+    </head>
+    </html>
